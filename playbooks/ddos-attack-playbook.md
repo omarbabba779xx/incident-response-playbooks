@@ -1,6 +1,6 @@
 # Playbook: DDoS Attack Response
 
-**Framework alignment:** NIST SP 800-61 Rev. 2 · SANS six-phase model
+**Framework alignment:** NIST SP 800-61 Rev. 2 & Rev. 3 · SANS six-phase model (see [README: Framework basis](../README.md#framework-basis))
 **Playbook owner:** SOC Team (technical response) / Network Operations (mitigation execution)
 **Last reviewed:** 2026-07-11
 
