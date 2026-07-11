@@ -154,7 +154,7 @@ flowchart TD
     D --> G{Access logs show\nexploitation during\nexposure window?}
     G -- Yes --> E
     G -- No evidence found --> H[Document as exposure-only;\nLegal determines notification\nneed based on jurisdiction rules]
-    E --> I{Regulated data type\n(PII/PHI/PCI) involved?}
+    E --> I{Regulated data type\nPII, PHI, or PCI involved?}
     F --> I
     I -- Yes --> J[Legal determines notification\nobligations + timeline per\napplicable regulation]
     I -- No, internal/IP only --> K[Standard incident closure,\nno regulatory notification,\nstill assess business impact]
