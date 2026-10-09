@@ -1,0 +1,31 @@
+title: Mailbox Rule Forwarding or Redirecting Email
+id: dfa0fb8c-9dd1-4774-8b49-5464e3e5eeb1
+status: experimental
+description: >
+  Detects creation or change of a mailbox rule that forwards or redirects messages. Often used
+  after an account takeover to keep access to mail or to hide replies (business email compromise).
+  Field names depend on the log pipeline; adapt them to your Microsoft 365 audit ingestion.
+references:
+  - https://attack.mitre.org/techniques/T1114/003/
+author: Omar Babba
+date: 2026/10/09
+tags:
+  - attack.collection
+  - attack.t1114.003
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation:
+      - 'New-InboxRule'
+      - 'Set-InboxRule'
+  forwarding:
+    Parameters|contains:
+      - 'ForwardTo'
+      - 'ForwardAsAttachmentTo'
+      - 'RedirectTo'
+  condition: selection and forwarding
+falsepositives:
+  - Users who forward to a personal or assistant mailbox with approval (compare with the exception list)
+level: medium

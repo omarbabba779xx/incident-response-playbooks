@@ -1,0 +1,31 @@
+title: Volume Shadow Copy Deletion
+id: a3579c01-9ebb-4fbb-9f3e-5a62cf51055a
+status: experimental
+description: >
+  Detects commands that delete Volume Shadow Copies, a common step before ransomware encrypts
+  files, to prevent recovery.
+references:
+  - https://attack.mitre.org/techniques/T1490/
+author: Omar Babba
+date: 2026/10/09
+tags:
+  - attack.impact
+  - attack.t1490
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_vssadmin:
+    Image|endswith: '\vssadmin.exe'
+    CommandLine|contains|all:
+      - 'delete'
+      - 'shadows'
+  selection_wmic:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains|all:
+      - 'shadowcopy'
+      - 'delete'
+  condition: 1 of selection_*
+falsepositives:
+  - Backup or storage administration run by an administrator (confirm with the change record)
+level: high

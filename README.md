@@ -9,8 +9,41 @@ guidance rather than improvised process.
 
 **Author:** Omar Babba · **Status:** Living documents, reviewed quarterly · **Last updated:** 2026-10-09
 
+## At a glance
+
+| Area | What is in the repo | Where |
+|---|---|---|
+| Response procedures | 5 playbooks (phishing, malware and ransomware, account compromise, data breach, DDoS), each with a decision tree | [`playbooks/`](playbooks/) |
+| Reusable templates | Stakeholder notification, executive summary, post-incident review, chain of custody | [`templates/`](templates/) |
+| Risk management | NIST SP 800-30 and ISO/IEC 27005 method, 5 scored scenarios, register template | [`risk/`](risk/) |
+| Privacy and regulation | GDPR personal data breach procedure (Art. 33 and 34), breach register | [`compliance/`](compliance/) |
+| Detection engineering | ATT&CK mapping per playbook and 4 Sigma rules | [`detection/`](detection/) |
+| Measurement | MTTD, MTTA, MTTC, MTTR definitions, targets by severity, SQL example | [`metrics/`](metrics/) |
+| Readiness | 5 tabletop exercises, scoring grid, after-action template | [`exercises/`](exercises/) |
+| Assurance | Crosswalk to NIST CSF 2.0, ISO/IEC 27001 and 27035, CIS Controls v8, GDPR, NIS2, DORA | [`frameworks/`](frameworks/) |
+
+## How to use this repository
+
+| If you are | Start with |
+|---|---|
+| A Tier-1 or Tier-2 analyst handling an alert | The matching [playbook](#playbooks-in-this-repo), then the [severity matrix](#severity-matrix-used-consistently-across-all-five-playbooks) |
+| A SOC lead improving the process | [Metrics](metrics/ir-metrics.md) and [tabletop exercises](exercises/tabletop-exercises.md) |
+| A detection engineer | [ATT&CK mapping and Sigma rules](detection/attack-mapping.md) |
+| A DPO, legal or compliance officer | [GDPR procedure](compliance/gdpr-breach-response.md) and the [framework crosswalk](frameworks/framework-crosswalk.md) |
+| A risk or audit professional | [Risk methodology](risk/risk-assessment-methodology.md) and the [crosswalk](frameworks/framework-crosswalk.md) |
+
+## Scope and limits
+
+The content is built from public standards (NIST, CISA, ISO, MITRE, GDPR and EDPB
+guidance) and written as reusable templates. The risk scores, targets and exercises are
+illustrative and must be adapted to each organisation. Nothing here is legal advice, and no
+procedure has been validated against a real production incident.
+
 ## Table of contents
 
+- [At a glance](#at-a-glance)
+- [How to use this repository](#how-to-use-this-repository)
+- [Scope and limits](#scope-and-limits)
 - [Framework basis](#framework-basis)
 - [Why this repo uses the SANS six-phase model operationally](#why-this-repo-uses-the-sans-six-phase-model-operationally)
 - [Playbooks in this repo](#playbooks-in-this-repo)
@@ -19,6 +52,10 @@ guidance rather than improvised process.
 - [Incident impact classification (NIST/CISA-aligned)](#incident-impact-classification-nistcisa-aligned)
 - [Risk management linkage](#risk-management-linkage)
 - [GDPR compliance linkage](#gdpr-compliance-linkage)
+- [Detection engineering and ATT&CK mapping](#detection-engineering-and-attck-mapping)
+- [Metrics](#metrics)
+- [Tabletop exercises](#tabletop-exercises)
+- [Framework and regulation crosswalk](#framework-and-regulation-crosswalk)
 - [Decision-tree diagrams](#decision-tree-diagrams)
 - [Repository structure](#repository-structure)
 - [Full Playbooks](#full-playbooks)
@@ -170,6 +207,42 @@ The [Data Breach playbook](playbooks/data-breach-playbook.md) cites the GDPR 72-
 
 This is a procedure template built from public sources, not legal advice.
 
+## Detection engineering and ATT&CK mapping
+
+[`detection/attack-mapping.md`](detection/attack-mapping.md) lists, for each playbook, the MITRE
+ATT&CK techniques it should handle, the telemetry needed to see them, and how to validate a
+detection safely in a lab. Four starter Sigma rules are included:
+
+| Rule | Technique | Playbook |
+|---|---|---|
+| [Office application spawning a script interpreter](detection/sigma/office-spawns-script-interpreter.yml) | T1204.002, T1059 | Phishing |
+| [Volume shadow copy deletion](detection/sigma/shadow-copy-deletion.yml) | T1490 | Malware infection |
+| [Mailbox rule forwarding or redirecting email](detection/sigma/m365-inbox-forwarding-rule.yml) | T1114.003 | Account compromise |
+| [Rclone execution](detection/sigma/rclone-exfiltration-tool.yml) | T1567.002 | Data breach |
+
+The rules are marked `experimental`: they are starting points to tune against real telemetry and
+false positives.
+
+## Metrics
+
+[`metrics/ir-metrics.md`](metrics/ir-metrics.md) defines the timestamps every case must record and
+the core measures (dwell time, MTTD, MTTA, MTTC, MTTR, notification timeliness), with targets by
+severity aligned to the severity matrix, quality metrics, a PostgreSQL query for the median and
+90th percentile, and a measured example from a lab.
+
+## Tabletop exercises
+
+[`exercises/tabletop-exercises.md`](exercises/tabletop-exercises.md) provides one discussion-based
+scenario per playbook with timed injects, decision questions and expected outputs, a 1 to 4
+scoring grid and an after-action report template.
+
+## Framework and regulation crosswalk
+
+[`frameworks/framework-crosswalk.md`](frameworks/framework-crosswalk.md) maps the SANS phases used
+here to NIST SP 800-61, NIST CSF 2.0, ISO/IEC 27035-1 and ISO/IEC 27001:2022 Annex A (5.24 to
+5.28), maps each artefact to CIS Controls v8 Control 17, and summarises notification duties under
+GDPR, NIS2, DORA and the US SEC rule, with a note on the Moroccan authorities (DGSSI and CNDP).
+
 ## Decision-tree diagrams
 
 Every playbook includes a Mermaid flowchart for its highest-value branching decision (e.g. "did
@@ -187,6 +260,11 @@ playbooks/
   account-compromise-playbook.md
   data-breach-playbook.md
   ddos-attack-playbook.md
+templates/
+  stakeholder-notification-template.md
+  executive-summary-template.md
+  post-incident-review-template.md
+  chain-of-custody-template.md
 risk/
   risk-assessment-methodology.md
   incident-risk-scenarios.md
@@ -194,11 +272,19 @@ risk/
 compliance/
   gdpr-breach-response.md
   breach-register-template.csv
-templates/
-  stakeholder-notification-template.md
-  executive-summary-template.md
-  post-incident-review-template.md
-  chain-of-custody-template.md
+detection/
+  attack-mapping.md
+  sigma/
+    office-spawns-script-interpreter.yml
+    shadow-copy-deletion.yml
+    m365-inbox-forwarding-rule.yml
+    rclone-exfiltration-tool.yml
+metrics/
+  ir-metrics.md
+exercises/
+  tabletop-exercises.md
+frameworks/
+  framework-crosswalk.md
 ```
 
 ## Full Playbooks
@@ -1440,5 +1526,11 @@ for the general format. DDoS-specific notification quick-reference:
 - CISA — [Federal Incident Notification Guidelines](https://www.cisa.gov/federal-incident-notification-guidelines) (Functional Impact / Information Impact / Recoverability classification)
 - NIST SP 800-30 Rev. 1 — [*Guide for Conducting Risk Assessments*](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
 - ISO/IEC 27005 — [*Information security risk management*](https://www.iso.org/standard/80585.html)
+- NIST SP 800-84 — *Guide to Test, Training, and Exercise Programs for IT Plans and Capabilities*
+- ISO/IEC 27035-1 — *Information security incident management, Part 1: Principles and process*
+- ISO/IEC 27001:2022 — Annex A controls 5.24 to 5.28 (incident management) and 5.34 (privacy)
+- CIS Controls v8 — [Control 17, Incident Response Management](https://www.cisecurity.org/controls/v8)
+- MITRE ATT&CK — [attack.mitre.org](https://attack.mitre.org/) and [Sigma](https://sigmahq.io/docs/)
+- NIS2 Directive (EU) 2022/2555 Art. 23 and DORA Regulation (EU) 2022/2554 Art. 19 — incident reporting duties
 - GDPR Articles 33 and 34 — personal data breach notification to the supervisory authority (72 hours) and to data subjects
 - EDPB — [*Guidelines 9/2022 on personal data breach notification under GDPR*](https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-92022-personal-data-breach-notification-under_en)
