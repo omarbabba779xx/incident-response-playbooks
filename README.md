@@ -18,6 +18,7 @@ guidance rather than improvised process.
 - [Severity matrix](#severity-matrix-used-consistently-across-all-five-playbooks)
 - [Incident impact classification (NIST/CISA-aligned)](#incident-impact-classification-nistcisa-aligned)
 - [Risk management linkage](#risk-management-linkage)
+- [GDPR compliance linkage](#gdpr-compliance-linkage)
 - [Decision-tree diagrams](#decision-tree-diagrams)
 - [Repository structure](#repository-structure)
 - [Full Playbooks](#full-playbooks)
@@ -157,6 +158,18 @@ Each playbook answers a risk scenario. The [`risk/`](risk/) folder makes that li
 The scores are an illustrative worked example for a generic mid-size organisation, not a real
 assessment.
 
+## GDPR compliance linkage
+
+The [Data Breach playbook](playbooks/data-breach-playbook.md) cites the GDPR 72-hour rule. The
+[`compliance/`](compliance/) folder turns it into a working procedure:
+
+| Document | Content |
+|---|---|
+| [GDPR personal data breach response](compliance/gdpr-breach-response.md) | Art. 4(12), 33 and 34 explained for analysts, EDPB-based decision workflow (aware, assess risk, notify authority, inform individuals), risk factors, roles, notification checklist, evidence for the 72-hour decision |
+| [Breach register template](compliance/breach-register-template.csv) | Register required by Art. 33(5), to record every breach, notified or not |
+
+This is a procedure template built from public sources, not legal advice.
+
 ## Decision-tree diagrams
 
 Every playbook includes a Mermaid flowchart for its highest-value branching decision (e.g. "did
@@ -178,6 +191,9 @@ risk/
   risk-assessment-methodology.md
   incident-risk-scenarios.md
   risk-register-template.csv
+compliance/
+  gdpr-breach-response.md
+  breach-register-template.csv
 templates/
   stakeholder-notification-template.md
   executive-summary-template.md
@@ -897,6 +913,7 @@ for the general format. Account-compromise-specific notification quick-reference
 **Framework alignment:** NIST SP 800-61 Rev. 2 & Rev. 3 · SANS six-phase model · GDPR Article 33 (72-hour notification requirement)
 **Playbook owner:** SOC Team (technical response) / Legal & Compliance (regulatory/notification)
 **Last reviewed:** 2026-07-11
+**GDPR procedure:** [Personal data breach response (Art. 33 and 34, decision workflow, breach register)](compliance/gdpr-breach-response.md)
 
 ---
 
@@ -1423,4 +1440,5 @@ for the general format. DDoS-specific notification quick-reference:
 - CISA — [Federal Incident Notification Guidelines](https://www.cisa.gov/federal-incident-notification-guidelines) (Functional Impact / Information Impact / Recoverability classification)
 - NIST SP 800-30 Rev. 1 — [*Guide for Conducting Risk Assessments*](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
 - ISO/IEC 27005 — [*Information security risk management*](https://www.iso.org/standard/80585.html)
-- GDPR Article 33 — 72-hour personal data breach notification requirement to supervisory authorities
+- GDPR Articles 33 and 34 — personal data breach notification to the supervisory authority (72 hours) and to data subjects
+- EDPB — [*Guidelines 9/2022 on personal data breach notification under GDPR*](https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-92022-personal-data-breach-notification-under_en)

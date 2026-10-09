@@ -63,7 +63,7 @@ controls listed.
 - **Controls that reduce likelihood:** access reviews, encryption, DLP, logging.
 - **Controls that reduce impact:** tested notification process, including the 72-hour regulator
   notification under GDPR Article 33, evidence preservation (playbook, Communication).
-- **Treatment:** reduce, and transfer part of the financial impact through insurance.
+- **Treatment:** reduce, and transfer part of the financial impact through insurance. Notification procedure: [GDPR personal data breach response](../compliance/gdpr-breach-response.md).
 - **KRIs:** share of sensitive datasets with a named owner; time from detection to the
   notification decision; open findings from access reviews.
 

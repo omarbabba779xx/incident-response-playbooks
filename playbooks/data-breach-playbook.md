@@ -3,6 +3,7 @@
 **Framework alignment:** NIST SP 800-61 Rev. 2 & Rev. 3 · SANS six-phase model · GDPR Article 33 (72-hour notification requirement)
 **Playbook owner:** SOC Team (technical response) / Legal & Compliance (regulatory/notification)
 **Last reviewed:** 2026-07-11
+**GDPR procedure:** [Personal data breach response (Art. 33 and 34, decision workflow, breach register)](../compliance/gdpr-breach-response.md)
 
 ---
 
