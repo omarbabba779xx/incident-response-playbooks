@@ -1,0 +1,2 @@
+ID,Scenario,Asset,Threat source,Vulnerability,Inherent likelihood (1-5),Inherent impact (1-5),Inherent score,Existing controls,Residual likelihood (1-5),Residual impact (1-5),Residual score,Residual level,Treatment (reduce/accept/transfer/avoid),Action,Owner,Due date,KRI,Linked playbook,Last review
+R-00,,,,,,,,,,,,,,,,,,,

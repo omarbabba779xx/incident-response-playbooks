@@ -7,7 +7,7 @@ step-by-step procedure: what to check, what to preserve as evidence, when and to
 and what to communicate to stakeholders at each stage — grounded in published NIST and CISA
 guidance rather than improvised process.
 
-**Author:** Omar Babba · **Status:** Living documents, reviewed quarterly · **Last updated:** 2026-07-11
+**Author:** Omar Babba · **Status:** Living documents, reviewed quarterly · **Last updated:** 2026-10-09
 
 ## Table of contents
 
@@ -17,6 +17,7 @@ guidance rather than improvised process.
 - [Shared templates](#shared-templates)
 - [Severity matrix](#severity-matrix-used-consistently-across-all-five-playbooks)
 - [Incident impact classification (NIST/CISA-aligned)](#incident-impact-classification-nistcisa-aligned)
+- [Risk management linkage](#risk-management-linkage)
 - [Decision-tree diagrams](#decision-tree-diagrams)
 - [Repository structure](#repository-structure)
 - [Full Playbooks](#full-playbooks)
@@ -143,6 +144,19 @@ but highly sensitive data exposure and a large-scope but fully-absorbed DDoS att
 "significant" without being equivalent incidents — the axes make that distinction explicit
 instead of forcing a single severity word to carry all three meanings at once.
 
+## Risk management linkage
+
+Each playbook answers a risk scenario. The [`risk/`](risk/) folder makes that link explicit:
+
+| Document | Content |
+|---|---|
+| [Risk assessment methodology](risk/risk-assessment-methodology.md) | NIST SP 800-30 Rev. 1 and ISO/IEC 27005 process, 5 x 5 likelihood and impact scales, risk appetite thresholds, treatment options, key risk indicators, review cadence |
+| [Incident risk scenarios](risk/incident-risk-scenarios.md) | One scored scenario per playbook (inherent and residual risk), controls, treatment, KRIs, and the loop from Post-Incident Review back to the register |
+| [Risk register template](risk/risk-register-template.csv) | Blank register to reuse |
+
+The scores are an illustrative worked example for a generic mid-size organisation, not a real
+assessment.
+
 ## Decision-tree diagrams
 
 Every playbook includes a Mermaid flowchart for its highest-value branching decision (e.g. "did
@@ -160,6 +174,10 @@ playbooks/
   account-compromise-playbook.md
   data-breach-playbook.md
   ddos-attack-playbook.md
+risk/
+  risk-assessment-methodology.md
+  incident-risk-scenarios.md
+  risk-register-template.csv
 templates/
   stakeholder-notification-template.md
   executive-summary-template.md
@@ -1403,4 +1421,6 @@ for the general format. DDoS-specific notification quick-reference:
 - CISA — [Federal Government Cybersecurity Incident and Vulnerability Response Playbooks](https://www.cisa.gov/resources-tools/resources/federal-government-cybersecurity-incident-and-vulnerability-response-playbooks) (Aug. 2024)
 - CISA — [#StopRansomware Guide](https://www.cisa.gov/stopransomware/ransomware-guide)
 - CISA — [Federal Incident Notification Guidelines](https://www.cisa.gov/federal-incident-notification-guidelines) (Functional Impact / Information Impact / Recoverability classification)
+- NIST SP 800-30 Rev. 1 — [*Guide for Conducting Risk Assessments*](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
+- ISO/IEC 27005 — [*Information security risk management*](https://www.iso.org/standard/80585.html)
 - GDPR Article 33 — 72-hour personal data breach notification requirement to supervisory authorities
